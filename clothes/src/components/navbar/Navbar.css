@@ -1,0 +1,20 @@
+.nav__wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+}
+.nav__wrapper ul{
+    display: flex;
+    list-style: none;
+    gap: 0 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.nav__wrapper ul a{
+    text-decoration: none;
+    color: #000;
+}
+.nav__wrapper h1{
+    font-family: Arial, Helvetica, sans-serif;
+    color: #000;
+}

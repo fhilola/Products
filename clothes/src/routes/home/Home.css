@@ -1,0 +1,37 @@
+.wrapper{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+}
+.wrapper a{
+    text-decoration: none;
+    color: #000;
+}
+.card{
+    box-shadow: 0 0 10px #cdcdcd;
+    border-radius: 5px;
+    padding: 10px;
+}
+.card img{
+    width: 100%;
+    aspect-ratio: 1/1;
+}
+.pagination{
+    text-align: center;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+.pagination button{
+    border: none;
+    background-color: #000;
+    color: #fff;
+    padding: 10px;
+    font-size: 30px;
+}
+.pagination strong{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+}
