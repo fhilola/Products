@@ -1,13 +1,16 @@
+import { useState } from "react"
 import { apiInstance } from "../../api"
 import { useNavigate } from "react-router-dom"
 
 const Login = () => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const navigate = useNavigate()
   function login(e){
     e.preventDefault()
     apiInstance.post('/auth/login', {
-      email: "fiamor@gmail.com",
-      password: "fiamor123"
+      email: email,
+      password: password
     })
     .then(response => {
       console.log(response);
@@ -21,8 +24,8 @@ const Login = () => {
     <div className='sign-up'>
       <form onSubmit={login}>
         <h1>Login</h1>
-        <input  type="email" placeholder='email' autoComplete='off'/>
-        <input  type="password" placeholder='password' autoComplete='off'/>
+        <input onInput={e=>{setEmail(e.target.value)}} value={email} type="email" placeholder='email'/>
+        <input onInput={e=>{setPassword(e.target.value)}} value={password} type="password" placeholder='password'/>
         <button type='submit'>register</button>
       </form>
     </div>

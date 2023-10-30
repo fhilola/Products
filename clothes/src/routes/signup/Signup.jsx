@@ -5,20 +5,20 @@ import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
 function Signup(){
-const [inputText, setInputText] = useState("");
 const navigate = useNavigate()
+const [username, setUsername] = useState('')
+const [email, setEmail] = useState('')
+const [password, setPassword] = useState('')
+const [avatar, setAvatar] = useState('')
 
-const handleChange = (e) => {
-    setInputText(e.target.value);
-  };
-  // console.log(inputText);
+
 function signUp (e){
   e.preventDefault()
   apiInstance.post('/users', {
-    name: "fiamor",
-    email: "fiamor@gmail.com",
-    password: "fiamor123",
-    avatar: "https://api.lorem.space/image/face?w=640&h=480&r=867",
+    name: username,
+    email: email,
+    password: password,
+    avatar: avatar,
   }) 
   .then(response => {
     if(response.status === 201){
@@ -26,19 +26,15 @@ function signUp (e){
     }
   }) 
 }
-  const textRef = useRef("");
-  const emailRef = useRef("");
-  const passwordRef = useRef("");
-  const urlRef = useRef("");
 
   return(
     <div className='sign-up'>
       <form onSubmit={signUp}>
         <h1>Sign Up</h1>
-        <input onInput={handleChange} value={inputText} ref={textRef} type="text" placeholder='name' />
-        <input ref={emailRef} type="email" placeholder='email' autoComplete='off'/>
-        <input ref={passwordRef} type="password" placeholder='password' autoComplete='off'/>
-        <input ref={urlRef} type="url" placeholder='avatar' autoComplete='off'/>
+        <input onInput={e => {setUsername(e.target.value)}} value={username} type="text" placeholder='name' />
+        <input onInput={e=>{setEmail(e.target.value)}} value={email} type="email" placeholder='email' />
+        <input onInput={e=>{setPassword(e.target.value)}} value={password} type="password" placeholder='password' />
+        <input onInput={e=>{setAvatar(e.target.value)}} value={avatar} type="url" placeholder='avatar' />
         <button type='submit'>register</button>
       </form>
     </div>
