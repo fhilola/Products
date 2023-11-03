@@ -5,10 +5,12 @@ import { Link } from 'react-router-dom'
 import { apiInstance } from '../../api'
 import { AiOutlineHeart } from 'react-icons/ai'
 import reducer from '../../reducer'
+import { createContext } from 'react'
+ export const AppContext = createContext()
+ const styleofIcon = {fontSize: "1.5em"}
 
 const Home = () => {
     const [state, dispatch] = useReducer(reducer, [])
-    console.log(state);
     const [page, setPage] = useState(0)
     const [data, setData] = useState({
         data: [],
@@ -17,7 +19,10 @@ const Home = () => {
         total: 0
     })
     function addFavourites(info) {
-        dispatch({type: 'add_favourites', info})
+        dispatch({ type: 'add_favourites', info })
+        localStorage.setItem("data", JSON.stringify(state))
+        let iconStyles = { color: "red", fontSize: "1.5em" };
+        AiOutlineHeart.style = {iconStyles}
     }
     useEffect(() => {
         async function loadData() {
@@ -42,7 +47,6 @@ const Home = () => {
         }
         loadData()
     }, [page])
-    console.log();
 
     function increasePage() {
         if (page < Math.ceil(data.total / 12 - 1)) {
@@ -54,9 +58,10 @@ const Home = () => {
             setPage(page - 1)
         }
     }
-    // console.log(data.data);
+    
     return (
-        <Container>
+        <AppContext.Provider value={state}>
+            <Container>
             <div className="wrapper">
                 {
                     data.data.map(info =>
@@ -68,18 +73,22 @@ const Home = () => {
                             <p>{info.description.slice(0, 40)}</p>
                             <div style={{ display: "flex", alignItems: 'center', justifyContent: 'space-between' }}>
                                 <strong>${info.price}</strong>
-                                <AiOutlineHeart onClick={() => addFavourites(info)} />
+                                <AiOutlineHeart style={styleofIcon} onClick={() => addFavourites(info)} />
                             </div>
                         </div>
                     )
                 }
             </div>
-            <div className='pagination'>
+            <div style={{ display: "flex", alignItems: 'center', justifyContent: 'space-between' }}>
+                <div className='pagination'>
                 <button onClick={substractPage}> &larr;</button>
                 <strong>{page + 1}</strong>
                 <button onClick={increasePage}>&rarr;</button>
             </div>
+            <Link to={'/likedProducts'}>Liked</Link>
+            </div>
         </Container>
+        </AppContext.Provider>
     )
 }
 export default Home
