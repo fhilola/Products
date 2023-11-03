@@ -1,5 +1,4 @@
 import './Signup.css'
-import React, { useRef } from 'react'
 import { apiInstance } from '../../api'
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';

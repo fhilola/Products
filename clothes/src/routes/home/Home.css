@@ -4,10 +4,13 @@
     gap: 30px;
 }
 .wrapper a{
-    text-decoration: none;
+    
     color: #000;
 }
 .card{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     box-shadow: 0 0 10px #cdcdcd;
     border-radius: 5px;
     padding: 10px;
