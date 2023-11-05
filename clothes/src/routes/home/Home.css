@@ -19,6 +19,15 @@
     width: 100%;
     aspect-ratio: 1/1;
 }
+.card button{
+    background-color: #fff;
+    border: none;
+
+}
+.card .heart-icon {
+    color: red;
+
+}
 .pagination{
     text-align: center;
     padding: 30px;

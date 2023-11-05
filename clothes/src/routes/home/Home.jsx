@@ -1,15 +1,19 @@
 import './Home.css'
 import { Container } from '../../utily/Index'
-import { useEffect, useReducer, useState } from 'react'
+import { useEffect, useReducer, useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { apiInstance } from '../../api'
 import { AiOutlineHeart } from 'react-icons/ai'
 import reducer from '../../reducer'
 import { createContext } from 'react'
- export const AppContext = createContext()
- const styleofIcon = {fontSize: "1.5em"}
+export const AppContext = createContext()
+const styleofIcon = { fontSize: "1.5em" }
+const iconStyles = { color: "red", fontSize: "1.5em" };
+
 
 const Home = () => {
+    const heart = useRef()
+    console.log(heart.current);
     const [state, dispatch] = useReducer(reducer, [])
     const [page, setPage] = useState(0)
     const [data, setData] = useState({
@@ -21,8 +25,7 @@ const Home = () => {
     function addFavourites(info) {
         dispatch({ type: 'add_favourites', info })
         localStorage.setItem("data", JSON.stringify(state))
-        let iconStyles = { color: "red", fontSize: "1.5em" };
-        AiOutlineHeart.style = {iconStyles}
+        heart.current.className('heart-icon')
     }
     useEffect(() => {
         async function loadData() {
@@ -58,36 +61,38 @@ const Home = () => {
             setPage(page - 1)
         }
     }
-    
+
     return (
         <AppContext.Provider value={state}>
             <Container>
-            <div className="wrapper">
-                {
-                    data.data.map(info =>
-                        <div className='card' key={info.id}>
-                            <Link to={`/single-product/${info.id}`}>
-                                <img src={info.images[0]} alt="" />
-                            </Link>
-                            <h3>{info.title}</h3>
-                            <p>{info.description.slice(0, 40)}</p>
-                            <div style={{ display: "flex", alignItems: 'center', justifyContent: 'space-between' }}>
-                                <strong>${info.price}</strong>
-                                <AiOutlineHeart style={styleofIcon} onClick={() => addFavourites(info)} />
+                <div className="wrapper">
+                    {
+                        data.data.map(info =>
+                            <div className='card' key={info.id}>
+                                <Link to={`/single-product/${info.id}`}>
+                                    <img src={info.images[0]} alt="" />
+                                </Link>
+                                <h3>{info.title}</h3>
+                                <p>{info.description.slice(0, 40)}</p>
+                                <div style={{ display: "flex", alignItems: 'center', justifyContent: 'space-between' }}>
+                                    <strong>${info.price}</strong>
+                                    <button ref={heart} onClick={() => addFavourites(info)}>
+                                        <AiOutlineHeart style={styleofIcon}  />
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                    )
-                }
-            </div>
-            <div style={{ display: "flex", alignItems: 'center', justifyContent: 'space-between' }}>
-                <div className='pagination'>
-                <button onClick={substractPage}> &larr;</button>
-                <strong>{page + 1}</strong>
-                <button onClick={increasePage}>&rarr;</button>
-            </div>
-            <Link to={'/likedProducts'}>Liked</Link>
-            </div>
-        </Container>
+                        )
+                    }
+                </div>
+                <div style={{ display: "flex", alignItems: 'center', justifyContent: 'space-between' }}>
+                    <div className='pagination'>
+                        <button onClick={substractPage}> &larr;</button>
+                        <strong>{page + 1}</strong>
+                        <button onClick={increasePage}>&rarr;</button>
+                    </div>
+                    <Link to={'/likedProducts'}>Liked</Link>
+                </div>
+            </Container>
         </AppContext.Provider>
     )
 }
