@@ -4,17 +4,13 @@ import { useEffect, useReducer, useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { apiInstance } from '../../api'
 import { AiOutlineHeart } from 'react-icons/ai'
-import reducer from '../../reducer'
 import { createContext } from 'react'
 export const AppContext = createContext()
 const styleofIcon = { fontSize: "1.5em" }
-const iconStyles = { color: "red", fontSize: "1.5em" };
 
 
 const Home = () => {
     const heart = useRef()
-    console.log(heart.current);
-    const [state, dispatch] = useReducer(reducer, [])
     const [page, setPage] = useState(0)
     const [data, setData] = useState({
         data: [],
@@ -24,8 +20,6 @@ const Home = () => {
     })
     function addFavourites(info) {
         dispatch({ type: 'add_favourites', info })
-        localStorage.setItem("data", JSON.stringify(state))
-        heart.current.className('heart-icon')
     }
     useEffect(() => {
         async function loadData() {
@@ -63,7 +57,6 @@ const Home = () => {
     }
 
     return (
-        <AppContext.Provider value={state}>
             <Container>
                 <div className="wrapper">
                     {
@@ -77,7 +70,7 @@ const Home = () => {
                                 <div style={{ display: "flex", alignItems: 'center', justifyContent: 'space-between' }}>
                                     <strong>${info.price}</strong>
                                     <button ref={heart} onClick={() => addFavourites(info)}>
-                                        <AiOutlineHeart style={styleofIcon}  />
+                                        <AiOutlineHeart style={styleofIcon} />
                                     </button>
                                 </div>
                             </div>
@@ -93,7 +86,6 @@ const Home = () => {
                     <Link to={'/likedProducts'}>Liked</Link>
                 </div>
             </Container>
-        </AppContext.Provider>
     )
 }
 export default Home
