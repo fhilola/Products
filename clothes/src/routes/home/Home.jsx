@@ -11,7 +11,6 @@ const styleofIcon = { fontSize: "1.5em" }
 
 const Home = () => {
     const cartproducts = useSelector(state => state.cart.cart_products)
-    console.log(cartproducts);
     const dispatch = useDispatch()
     const [page, setPage] = useState(0)
     const [data, setData] = useState({
@@ -80,9 +79,20 @@ const Home = () => {
                                 <button onClick={() => addFavourites(info)}>
                                     <AiOutlineHeart style={styleofIcon} />
                                 </button>
-                                <button onClick={()=>handleAddToCart(info)}>
+                                {
+                                    cartproducts.findIndex(cartproduct => cartproduct.id === info.id) !== -1 ? 
+                                    <div className='button__wrapper'>
+                                        <button>+</button>
+                                        {
+                                            <p>{cartproducts.find(cartproduct => cartproduct.id === info.id).count}</p>
+                                        }
+                                        <button>-</button>
+                                    </div>
+                                    :
+                                    <button onClick={()=>handleAddToCart(info)}>
                                     <TiShoppingCart style={styleofIcon}/>
                                 </button>
+                                }
                             </div>
                         </div>
                     )
@@ -95,6 +105,7 @@ const Home = () => {
                     <button onClick={increasePage}>&rarr;</button>
                 </div>
                 <Link to={'/likedProducts'}>Liked</Link>
+                <Link to={'/cart'}>Cart</Link>
             </div>
         </Container>
     )

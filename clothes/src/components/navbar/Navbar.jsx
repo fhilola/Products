@@ -6,7 +6,7 @@ import { Container } from '../../utily/Index';
 
 const Navbar = () => {
   const {pathname} = useLocation()
-  return !pathname.includes('login') && !pathname.includes('signup') && !pathname.includes('home') && !pathname.includes('/single-product') && !pathname.includes('private') && !pathname.includes('likedProducts') &&
+  return !pathname.includes('login') && !pathname.includes('signup') && !pathname.includes('home') && !pathname.includes('/single-product') && !pathname.includes('private') && !pathname.includes('likedProducts') && !pathname.includes('cart') &&
   (
     <Container>
       <div className='nav__wrapper'>

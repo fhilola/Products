@@ -6,6 +6,7 @@ import Navbar from './components/navbar/Navbar'
 import SingleProduct from './routes/singleProduct/SingleProduct'
 import Private from './routes/private/Private'
 import LikedProducts from './components/liked/LikedProducts'
+import Cart from './components/cart/Cart'
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
       <Route path='/signup' element={<Signup/>}/>
       <Route path='/single-product/:id' element={<SingleProduct/>}/>
       <Route path='/likedProducts' element={<LikedProducts/>}/>
+      <Route path='/cart' element={<Cart/>}/>
     </Routes>
     </>
   )
