@@ -3,7 +3,7 @@ import { Container } from '../../utily/Index'
 import { Link } from 'react-router-dom'
 
 const Cart = () => {
-    const likedProducts = useSelector(state => state.cart.cart_products)
+    const cartProducts = useSelector(state => state.cart.cart_products)
     const dispatch = useDispatch()
 
     const handleIncrementProductCount = (info)=>{
@@ -17,7 +17,7 @@ const Cart = () => {
    <Container>
     <div className="wrapper">
                 {
-                    likedProducts.map(product =>
+                    cartProducts.map(product =>
                     <div className='card' key={product.id}>
                             <Link to={`/single-product/${product.id}`}>
                                 <img src={product.images[0]} alt="" />
@@ -29,7 +29,7 @@ const Cart = () => {
                                 <strong>${product.price}</strong>
                                 <div className="button__wrapper">
                                     <button onClick={()=>handleIncrementProductCount(product)}>+</button>
-                                    <p>{likedProducts.find(cartproduct => cartproduct.id === product.id).count}</p>
+                                    <p>{cartProducts.find(cartproduct => cartproduct.id === product.id).count}</p>
                                     <button onClick={()=> handleDecrementProductCount(product)}>-</button>
                                 </div>
                                 <button>Remove from cart</button>
