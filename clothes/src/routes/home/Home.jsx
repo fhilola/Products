@@ -49,6 +49,7 @@ const Home = () => {
     }
 
     const handleAddToCart = (info) => {
+        info.count = 1
         dispatch({type: 'ADD_TO_CART', info})
     }
 
@@ -61,6 +62,12 @@ const Home = () => {
         if (page > 0) {
             setPage(page - 1)
         }
+    }
+    const handleIncrementProductCount = (info) => {
+        dispatch({type: 'INCREMENT_COUNT', info})
+    }
+    const handleDecrementProductCount = (info) => {
+        dispatch({type: 'DECREMENT_COUNT', info})
     }
 
     return (
@@ -82,11 +89,11 @@ const Home = () => {
                                 {
                                     cartproducts.findIndex(cartproduct => cartproduct.id === info.id) !== -1 ? 
                                     <div className='button__wrapper'>
-                                        <button>+</button>
+                                        <button onClick={()=>handleIncrementProductCount(info)}>+</button>
                                         {
                                             <p>{cartproducts.find(cartproduct => cartproduct.id === info.id).count}</p>
                                         }
-                                        <button>-</button>
+                                        <button onClick={()=>handleDecrementProductCount(info)}>-</button>
                                     </div>
                                     :
                                     <button onClick={()=>handleAddToCart(info)}>
